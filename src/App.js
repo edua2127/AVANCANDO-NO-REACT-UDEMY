@@ -1,23 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
 
+import { useState } from 'react';
+import './App.css';
+import ComponentChildren from './components/ComponentChildren';
+import Destruction from './components/Destruction';
+import FragmentExemplo from './components/FragmentExemplo';
+import MostraImagens from './components/MostraImagens';
+import PassandoFuncaoNaProp from './components/PassandoFuncaoNaProp';
 function App() {
+  const lista = [
+    {nome:"uno",ano:2005, newCar:false},
+    {nome:"fusca",ano:2008, newCar:false},
+    {nome:"fiat",ano:2001, newCar:true}
+  ]
+
+  const [lista2, setLista] = useState([
+    {nome:"exemplo1",ano:2005, newCar:false},
+    {nome:"exemplo2",ano:2008, newCar:false},
+    {nome:"exemplo3",ano:2001, newCar:true}
+  ])
+  const exemploFuncao = ()=> {
+    lista2.map((item) => {item.ano = item.ano + 1})
+    console.log(lista2)
+  }
+  const renderizacaoEmLoop = ()=> {
+    return lista.map( (item, index) => (<Destruction nome={item.nome} ano={item.ano} newCar={item.newCar}  key={index}/>))
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Avancando no React!</h1>
+      {/* diferentes formas de mostrar uma imagem*/}
+      <MostraImagens />
+       {/* primeira forma de reatilizar o componente*/}
+      <Destruction nome={"carro1"} ano={2019} newCar={false}/>
+      <Destruction nome={"carro2"} ano={2012} newCar={false}/>
+      <Destruction nome={"carro3"} ano={2010} newCar={false}/>
+      <Destruction nome={"carro4"} ano={2022} newCar={true}/>
+      {/*segunda forma de reutilizar o componente, utilizando o loop*/}
+      <p>Utilizando o reaproventamento com loop</p>
+      {renderizacaoEmLoop()}
+
+      {/*utilizando o fragmente*/}
+      <FragmentExemplo propFragmente={'fragmente de propriedade'}/>
+
+      {/* componente com prop children*/}
+      <ComponentChildren titulo={"the black wolf"}>o lobo era escuro como a noite, com olhos claros como a lua</ComponentChildren>
+
+      {/* passando funcoes como propriedades de um componente*/}
+      <PassandoFuncaoNaProp somaUm={exemploFuncao} />
     </div>
   );
 }
