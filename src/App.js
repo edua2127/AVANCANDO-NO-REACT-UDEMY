@@ -4,8 +4,10 @@ import './App.css';
 import ComponentChildren from './components/ComponentChildren';
 import Destruction from './components/Destruction';
 import FragmentExemplo from './components/FragmentExemplo';
+import ImprimeMensagem from './components/ImprimeMensagem';
 import MostraImagens from './components/MostraImagens';
 import PassandoFuncaoNaProp from './components/PassandoFuncaoNaProp';
+import SetaMensagem from './components/SetaMensagem';
 function App() {
   const lista = [
     {nome:"uno",ano:2005, newCar:false},
@@ -13,7 +15,7 @@ function App() {
     {nome:"fiat",ano:2001, newCar:true}
   ]
 
-  const [lista2, setLista] = useState([
+  const [lista2] = useState([
     {nome:"exemplo1",ano:2005, newCar:false},
     {nome:"exemplo2",ano:2008, newCar:false},
     {nome:"exemplo3",ano:2001, newCar:true}
@@ -24,6 +26,12 @@ function App() {
   }
   const renderizacaoEmLoop = ()=> {
     return lista.map( (item, index) => (<Destruction nome={item.nome} ano={item.ano} newCar={item.newCar}  key={index}/>))
+  }
+
+  const [message, setMessage] = useState("")
+
+  const alterarMensagem = (mensagem)=> {
+    setMessage(mensagem)
   }
   return (
     <div className="App">
@@ -47,6 +55,12 @@ function App() {
 
       {/* passando funcoes como propriedades de um componente*/}
       <PassandoFuncaoNaProp somaUm={exemploFuncao} />
+      <br />
+      {/* state lift */}
+      {/* imprime a mensagem */}
+      <SetaMensagem alterarMensagem={alterarMensagem} />
+      <ImprimeMensagem mensagem={message}/>
+    
     </div>
   );
 }
